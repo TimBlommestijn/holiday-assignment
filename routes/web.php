@@ -11,10 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// onnodige route
+
+use App\Http\Controllers\ContactController;
 
 Route::get('/hello/hello', function () {
     return 'hello';
 });
+// routes maken reference naar de controller
+Route::get('/', 'ContactController@index');
+Route::get('/about', 'PageController@about');
+Route::get('/contact', 'PageController@contact');
+Route::post('/contact', 'ContactController@store');
+Route::get('/update/contact/{id}', "ContactController@findContactUpdate");
+Route::post('/update/contact/{id}', 'ContactController@updateContact');
+Route::delete('/delete/contact/{id}', 'ContactController@destroyContact');
