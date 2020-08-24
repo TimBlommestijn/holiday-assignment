@@ -3,55 +3,58 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Customer;
 
 class CustomerController extends Controller
 {
     public function index(){
 
-        $customers = \App\Customer::all();
+        $customers = Customer::all();
 
         return view('customer.index', compact('customers'));
     }
 
     public function create(){
 
-        return view('customer.create');
+        $customer = new Customer;
+
+        return view('customer.create', compact('customer'));
 
     }
 
     public function Store(){
-        $data =  request()->validate([
-            'name' => 'required',
-            'email' => 'required|email'
-        ]);
 
-        \App\Customer::create($data);
+        $customer =  Customer::create($this->validateData());
 
-        return redirect('/customers');
+        return redirect('/customers/'. $customer->id);
     }
 
-    public function show( \App\Customer $customer){
+    public function show(Customer $customer){
         return view('customer.show', compact('customer'));
     }
     
-    public function edit(\App\Customer $customer){
+    public function edit(Customer $customer){
         return view('customer.edit' , compact('customer'));
     }
 
-    public function update(\App\Customer $customer){
-        $data =  request()->validate([
-            'name' => 'required',
-            'email' => 'required|email'
-        ]);
+    public function update(Customer $customer){
+        Customer::create($this->validateData());
 
         $customer->update($data);
 
         return redirect('/customers');
     }
 
-    public function destroy( \App\Customer $customer){
+    public function destroy(Customer $customer){
         $customer->delete();
-        return redirect('/customer');
+        return redirect('/customers');
+    }
+
+    public function validateData(){
+        return request()->validate([
+            'name' => 'required',
+            'email' => 'required|email'
+        ]);
     }
 
 }
