@@ -49,4 +49,9 @@ class CustomerController extends Controller
         return redirect('/customers');
     }
 
+    public function destroy( \App\Customer $customer){
+        $customer->delete();
+        return redirect('/customer');
+    }
+
 }
