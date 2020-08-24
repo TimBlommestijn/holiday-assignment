@@ -11,21 +11,17 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// onnodige route
-
-use App\Http\Controllers\ContactController;
-
-Route::get('/hello/hello', function () {
-    return 'hello';
+Route::get('/', function () {
+    return view('welcome');
 });
-// routes maken reference naar de controller
-Route::get('/', 'ContactController@index');
-Route::get('/about', 'PageController@about');
-Route::get('/contact', 'PageController@contact');
-Route::post('/contact', 'ContactController@store');
-Route::get('/update/contact/{id}', "ContactController@findContactUpdate");
-Route::post('/update/contact/{id}', 'ContactController@updateContact');
-Route::delete('/delete/contact/{id}', 'ContactController@destroyContact');
+
+
+Route::get('/about', 'HelloController@about');
+Route::get('/services', 'ServiceController@index');
+Route::post('/services', 'ServiceController@store');
+Route::get('/customers', 'CustomerController@index');
+Route::get('/customers/create', 'CustomerController@create');
+Route::post('/customers', 'CustomerController@store');
+Route::get('/customers/{customer}', 'CustomerController@show');
+Route::get('/customers/{customer}/edit', 'CustomerController@edit');
+Route::patch('/customers/{customer}', 'CustomerController@update');
