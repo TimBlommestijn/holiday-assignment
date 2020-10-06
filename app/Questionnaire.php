@@ -10,6 +10,10 @@ class Questionnaire extends Model
     protected $guarded = [];
 
     public function user(){
-        return $this->hasMany(\App\Questionnaire::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function question(){
+        return $this->hasMany(Question::class);
     }
 }
