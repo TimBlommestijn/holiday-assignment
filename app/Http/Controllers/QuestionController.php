@@ -19,10 +19,10 @@ class QuestionController extends Controller
             'answers.*.answer'=>'required',
         ]);
         
-        $question = $questionnaire->question()->create($data['question']);
+        $question = $questionnaire->questions()->create($data['question']);
         $question->answers()->createMany($data['answers']); 
 
-        return \redirect('/questionnaires/'.$questionnaire->id);
+        return redirect('/questionnaires/'.$questionnaire->id);
     }
 
 }
